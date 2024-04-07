@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "lib": ["ESNext"],
+    "target": "ES2015",
+    "module": "ESNext",
+    "declaration": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "outDir": "./dist",
+    "declarationDir": "./dist/types",
+    "noImplicitAny": false,
+    "types": ["node"],
+    "moduleResolution": "Node"
+  },
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "files": ["src/index.ts"]
+}

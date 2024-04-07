@@ -1,0 +1,11 @@
+{
+  "name": "rollup.plugins",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "pnpm -C packages/rollup-plugins build"
+  },
+  "keywords": [],
+  "author": "NotYoojun.!",
+  "license": "ISC"
+}
