@@ -21,7 +21,7 @@ export type PreserveDirectivesOptions = {
  *
  */
 
-export function preserveDirectives({
+ function preserveDirectives({
   suppressPreserveModulesWarning,
   include = [],
   exclude = [],

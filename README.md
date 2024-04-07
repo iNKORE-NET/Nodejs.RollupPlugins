@@ -43,6 +43,10 @@
 
 -   [plugin-clear](https://github.com/getkey/rollup-plugin-obfuscator): This plugin can help you to clear the specific directories when the rollup bundle your resource.
 
+-   [plugin-exec](https://github.com/kshutkin/rollup-extras/blob/main/plugin-exec): Execute some code when the bundle you are building is finished.
+
+executeScript
+
 # 🤔 Quick Start
 
 1. Install package from npm.

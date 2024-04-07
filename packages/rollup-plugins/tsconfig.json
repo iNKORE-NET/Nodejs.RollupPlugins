@@ -29,5 +29,8 @@
     "incremental": true,
     "tsBuildInfoFile": "./dist/.tsbuildinfo",
   },
-  "files": ["src/index.ts"]
+  "files": ["src/index.ts"],
+  "include": [
+    "src/**/*",
+  ]
 }

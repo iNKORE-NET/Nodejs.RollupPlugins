@@ -43,7 +43,7 @@ const defaultOptions = {
 	obfuscate,
 };
 
-export function javascriptObfuscator (override?: Partial<RollupPluginObfuscatorOptions>): Plugin {
+function javascriptObfuscator (override?: Partial<RollupPluginObfuscatorOptions>): Plugin {
 	const options: RollupPluginObfuscatorOptions = {
 		...defaultOptions,
 		...override,
@@ -82,8 +82,8 @@ export function javascriptObfuscator (override?: Partial<RollupPluginObfuscatorO
 	};
 }
 
-// export default rollupPluginObfuscator;
+export default javascriptObfuscator;
 // unfortunately, TypeScript won't generate the following for us
 // see https://github.com/microsoft/TypeScript/issues/2719
 // but we can assume we're always in a CommonJS environment. Right? ...Right?
-//module.exports = rollupPluginObfuscator;
+//module.exports = javascriptObfuscator;

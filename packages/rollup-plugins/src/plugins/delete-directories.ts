@@ -9,7 +9,7 @@ interface Options {
     watch?: boolean;
 }
 
-export const deleteDirectories = (options: Options) => {
+const deleteDirectories = (options: Options) => {
     const targets = options.targets || [];
     // 在rollup watch模式下，当recompile的时候是否clear，默认false
     const watch = options.watch === true ? true : false;
@@ -42,3 +42,5 @@ export const deleteDirectories = (options: Options) => {
         }
     };
 };
+
+export default deleteDirectories;
