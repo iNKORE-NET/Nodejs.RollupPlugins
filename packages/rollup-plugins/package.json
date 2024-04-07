@@ -43,7 +43,9 @@
   },
   "dependencies": {
     "@rollup/pluginutils": "^5.1.0",
-    "magic-string": "^0.30.5"
+    "javascript-obfuscator": "^4.1.0",
+    "magic-string": "^0.30.5",
+    "rimraf": "^5.0.5"
   },
   "devDependencies": {
     "@types/node": "^20.12.5",
