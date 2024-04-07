@@ -1,11 +1,14 @@
 {
   "name": "@inkore/rollup-plugins",
-  "description": "A bunch of useful Rollup",
+  "description": "A collection of some commonly used rollup plugins.",
   "version": "0.1.0",
   "author": "NotYoojun.!",
   "license": "LGPL-2.1-or-later",
   "keywords": [
-    "rollup-plugin"
+    "rollup-plugin",
+    "rollup",
+    "inkore",
+    "plugin"
   ],
   "publishConfig": {
     "access": "public"
@@ -31,8 +34,8 @@
     "type": "git",
     "url": "A collection of some commonly used rollup plugins."
   },
-  "homepage": "https://github.com/Ephem/rollup-plugin-preserve-directives#readme",
-  "bugs": "https://github.com/Ephem/rollup-plugin-preserve-directives/issues",
+  "homepage": "https://github.com/iNKORE-Public/Rollup.Plugins#readme",
+  "bugs": "https://github.com/iNKORE-Public/Rollup.Plugins/issues",
   "scripts": {
     "check": "tsc",
     "build": "tsup src/index.ts --dts --format cjs,esm",
