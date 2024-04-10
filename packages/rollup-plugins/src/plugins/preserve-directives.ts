@@ -23,7 +23,7 @@ export type PreserveDirectivesOptions = {
 
  function preserveDirectives({
   suppressPreserveModulesWarning,
-  include = [],
+  include = ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
   exclude = [],
 }: PreserveDirectivesOptions = {}): Plugin {
   // Skip CSS files by default, as this.parse() does not work on them

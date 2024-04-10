@@ -4,7 +4,10 @@
 import { Plugin } from 'rollup';
 import { createFilter } from '@rollup/pluginutils';
 
-import { obfuscate, ObfuscationResult, ObfuscatorOptions } from 'javascript-obfuscator';
+import { ObfuscationResult, ObfuscatorOptions } from 'javascript-obfuscator';
+
+import pkg from 'javascript-obfuscator';
+const { obfuscate } = pkg;
 
 type FilterOptions = string | RegExp | (string | RegExp)[];
 
