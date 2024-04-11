@@ -36,6 +36,8 @@ export interface RollupPluginObfuscatorOptions {
 	 * Overwrite the obfuscate method used.
 	 */
 	obfuscate: (sourceCode: string, inputOptions?: ObfuscatorOptions) => ObfuscationResult,
+
+    shouldObfuscate?: ((code: string, id: string) => boolean);
 }
 
 const defaultOptions = {
@@ -44,6 +46,7 @@ const defaultOptions = {
 	include: ['**/*.js', '**/*.ts'],
 	exclude: ['node_modules/**'],
 	obfuscate,
+    shouldObfuscate: undefined
 };
 
 function javascriptObfuscator (override?: Partial<RollupPluginObfuscatorOptions>): Plugin {
@@ -56,8 +59,15 @@ function javascriptObfuscator (override?: Partial<RollupPluginObfuscatorOptions>
 	return {
 		name: 'rollup-plugin-obfuscator',
 
-		transform: options.global ? undefined : (code, id) => {
+		transform: options.global ? undefined : (code, id) => 
+        {
 			if (!filter(id)) return null;
+
+            if (options.shouldObfuscate)
+            {
+                if(!options.shouldObfuscate(code, id))
+                    return;
+            }
 
 			const obfuscationResult = options.obfuscate(code, {
 				...options.options,

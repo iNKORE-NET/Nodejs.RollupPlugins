@@ -3,6 +3,16 @@
 
 ---
 
+# ⚠️ Caution: Work in process!
+
+-   We're still working on this package, which means it might be unstable or unsuable.
+
+-   Also the APIs could be changed or removed at any time. Use at your own risk.
+
+-   Issues and pull request are welcomed. If you encounter an issue, don't hesitate to tell us!
+
+---
+
 # 🤔 Quick Start
 
 1. Install package from npm.
