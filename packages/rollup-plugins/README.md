@@ -3,7 +3,7 @@
 
 ---
 
-# ⚠️ Caution: Work in process!
+# ⚠️ Caution: Work in progress! (WIP)
 
 -   We're still working on this package, which means it might be unstable or unsuable.
 
