@@ -42,7 +42,23 @@
     "watch": "pnpm build --watch"
   },
   "peerDependencies": {
-    "rollup": "2.x || 3.x || 4.x"
+    "glob": "^10.3.15",
+    "javascript-obfuscator": "^4.1.0",
+    "postcss": "^8.4.38",
+    "postcss-modules": "^6.0.0",
+    "rollup": "2.x || 3.x || 4.x",
+    "sass": "^1.77.1"
+  },
+  "peerDependenciesMeta": {
+    "postcss": {
+      "optional": true
+    },
+    "postcss-modules": {
+      "optional": true
+    },
+    "sass": {
+      "optional": true
+    }
   },
   "dependencies": {
     "@niceties/logger": "^1.1.13",
@@ -53,7 +69,6 @@
     "fs-extra": "^11.2.0",
     "globby": "^14.0.1",
     "is-plain-object": "^5.0.0",
-    "javascript-obfuscator": "^4.1.0",
     "magic-string": "^0.30.5",
     "perf-regexes": "^1.0.1",
     "rimraf": "^5.0.5",
@@ -61,6 +76,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.12.5",
+    "glob": "^10.3.15",
     "rollup": "^4.9.5",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3"
