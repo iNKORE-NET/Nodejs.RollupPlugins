@@ -1,6 +1,8 @@
+// From https://github.com/DanielAmenou/rollup-plugin-lib-style
+
 import { createFilter } from "@rollup/pluginutils"
 import fs from "fs-extra"
-import sass from "sass"
+import * as sass from "sass"
 import * as glob from "glob"
 
 //#region Types
@@ -38,7 +40,8 @@ const MAGIC_PATH = "@@_MAGIC_PATH_@@"
 
 const modulesIds = new Set()
 
-const outputPaths: string[] = []
+const outputPaths: string[] = [];
+const inputPaths: string[] = []
 
 const defaultLoaders = [
   {
@@ -65,9 +68,23 @@ function PreserveCssFile (options: PreserveCssFileOptions = {})
   return {
     name: PLUGIN_NAME,
 
-    options(options) {
-      if (!options.output) console.error("missing output options")
-      else options.output.forEach((outputOptions) => outputPaths.push(outputOptions.dir))
+    options(options) 
+    {
+        if (!options.output) console.error("missing output options")
+        else options.output.forEach((outputOptions) => outputPaths.push(outputOptions.dir))
+        
+        if (!options.input) console.error("missing input options")
+        else
+        {
+            if(typeof options.input === "string")
+            {
+                inputPaths.push(options.input)
+            }
+            else if (Array.isArray(options.input))
+            {
+                options.input.forEach((inputOptions) => inputPaths.push(inputOptions.dir))
+            }
+        }
     },
 
     async transform(code, id) {
@@ -82,16 +99,20 @@ function PreserveCssFile (options: PreserveCssFileOptions = {})
 
       for (const dependency of postCssResult.dependencies) this.addWatchFile(dependency)
 
-      const cssFilePath = id.replace(process.cwd(), "").replace(/\\/g, "/")
+      const cssFilePathAbsolute = id.replace(loader.regex, ".css").replaceAll("\\", "/");
 
+      let cssFilePath = path.relative(process.cwd(), cssFilePathAbsolute);
+      const cssFilePath_parts = cssFilePath.split("/");
+      if (cssFilePath_parts.length > 0) cssFilePath = cssFilePath.substring(cssFilePath_parts[0].length + 1);
+    this.warn(cssFilePath);
       // create a new css file with the generated hash class names
       this.emitFile({
         type: "asset",
-        fileName: cssFilePath.replace("/", "").replace(loader.regex, ".css"),
+        fileName: cssFilePath,
         source: postCssResult.extracted.code,
       })
 
-      const importStr = importCSS ? `import "${MAGIC_PATH}${cssFilePath.replace(loader.regex, ".css")}";\n` : ""
+      const importStr = importCSS ? `import "${MAGIC_PATH}${cssFilePath}";\n` : ""
 
       // create a new js file with css module
       return {
@@ -117,7 +138,24 @@ function PreserveCssFile (options: PreserveCssFileOptions = {})
           fs
             .readFile(currentPath)
             .then((buffer) => buffer.toString())
-            .then((fileContent) => replaceMagicPath(fileContent, customPath))
+            //.then((fileContent) => replaceMagicPath(fileContent, "./"))
+            .then((fileContent) => {
+                const regex = /import\s+['"]@@_MAGIC_PATH_@@([^'"]+)['"]/g;
+                return fileContent.replace(regex, (_, match) => {
+                    let relativePath = path.relative(path.dirname(currentPath), path.join(match)).replace(/\\/g, "/");
+                    if (!fs.existsSync(path.resolve(path.dirname(currentPath), relativePath)))
+                    {
+                        if(relativePath.startsWith("../"))
+                        {
+                            const newPath = relativePath.substring("../".length);
+                            if (fs.existsSync(path.resolve(path.dirname(currentPath), relativePath)))
+                                relativePath = newPath;
+                        }
+                    }
+                    const correctedPath = relativePath.replace(/\\/g, "/");
+                    return `import '${"currenPath:" + currentPath + "_match:" + match}'`;
+                });
+            })
             .then((fileContent) => fs.writeFile(currentPath, fileContent))
         )
       )
@@ -158,6 +196,7 @@ const replaceFormat = (formatString, fileName, cssContent) => {
 
 import postcss from "postcss"
 import postcssModules from "postcss-modules"
+import path from "node:path"
 
 const DEFAULT_SCOPED_NAME = "[local]_[hash:hex:6]"
 
