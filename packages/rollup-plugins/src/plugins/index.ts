@@ -13,5 +13,8 @@ export * from "./javascript-obfuscator";
 
 export { default as Plugin_PreserveComments } from "./preserve-comments";
 
+export { default as Plugin_PreserveCssFiles } from "./preserve-css-files";
+export * from "./preserve-css-files";
+
 // export { default as Plugin_CodeCleanup } from "./code-cleanup";
 // export * from "./code-cleanup";
