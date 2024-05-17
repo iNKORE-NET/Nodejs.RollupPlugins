@@ -34,7 +34,7 @@ export interface PreserveCssFileOptions
 
 //#region Main
 
-const PLUGIN_NAME = "rollup-plugin-lib-style"
+const PLUGIN_NAME = "preserveCssFiles"
 const MAGIC_PATH_REGEX = /@@_MAGIC_PATH_@@/g
 const MAGIC_PATH = "@@_MAGIC_PATH_@@"
 
@@ -88,7 +88,9 @@ function PreserveCssFile (options: PreserveCssFileOptions = {})
     },
 
     async transform(code, id) {
-      const loader = getLoader(id)
+      try
+      {
+        const loader = getLoader(id)
       if (!filter(id) || !loader) return null
 
       modulesIds.add(id)
@@ -99,12 +101,13 @@ function PreserveCssFile (options: PreserveCssFileOptions = {})
 
       for (const dependency of postCssResult.dependencies) this.addWatchFile(dependency)
 
-      const cssFilePathAbsolute = id.replace(loader.regex, ".css").replaceAll("\\", "/");
+      const cssFilePathAbsolute = id.replace(loader.regex, ".css");
 
-      let cssFilePath = path.relative(process.cwd(), cssFilePathAbsolute);
+      let cssFilePath = path.relative(process.cwd(), cssFilePathAbsolute).replaceAll("\\", "/");
+
       const cssFilePath_parts = cssFilePath.split("/");
       if (cssFilePath_parts.length > 0) cssFilePath = cssFilePath.substring(cssFilePath_parts[0].length + 1);
-    this.warn(cssFilePath);
+        //this.warn("currentPath: " + cssFilePath + "  absolute:" + cssFilePathAbsolute);
       // create a new css file with the generated hash class names
       this.emitFile({
         type: "asset",
@@ -119,9 +122,14 @@ function PreserveCssFile (options: PreserveCssFileOptions = {})
         code: importStr + postCssResult.code,
         map: {mappings: ""},
       }
+      }
+      catch(e)
+      {
+        this.warn(e);
+      }
     },
 
-    async closeBundle() {
+    async writeBundle() {
       if (!importCSS) return
 
       // get all the modules that import CSS files
@@ -142,18 +150,39 @@ function PreserveCssFile (options: PreserveCssFileOptions = {})
             .then((fileContent) => {
                 const regex = /import\s+['"]@@_MAGIC_PATH_@@([^'"]+)['"]/g;
                 return fileContent.replace(regex, (_, match) => {
-                    let relativePath = path.relative(path.dirname(currentPath), path.join(match)).replace(/\\/g, "/");
-                    if (!fs.existsSync(path.resolve(path.dirname(currentPath), relativePath)))
+
+                    const __currentPath_parts = currentPath.replace("\\", "/").split("/");
+                    const currentPathRoot = __currentPath_parts[0] ?? "";
+                    //this.info("currentPathRoot: " + currentPathRoot);
+
+                    let relativePath = path.relative(path.dirname(path.resolve(currentPath)), path.resolve(match)).replace(/\\/g, "/");
+
+                    //this.info("relat1tester:" + path.resolve(process.cwd(), path.dirname(path.resolve(currentPath)), relativePath));
+
+                    if (!fs.existsSync(path.resolve(process.cwd(), path.dirname(path.resolve(currentPath)), relativePath)))
                     {
-                        if(relativePath.startsWith("../"))
-                        {
-                            const newPath = relativePath.substring("../".length);
-                            if (fs.existsSync(path.resolve(path.dirname(currentPath), relativePath)))
-                                relativePath = newPath;
-                        }
+                        //this.info("relat1 no exist: " + path.resolve(process.cwd(), relativePath));
+
+                        let __p2 = path.relative(path.dirname(path.resolve(currentPath)), path.resolve(path.join(currentPathRoot, match)))
+                        // this.info("relat2:" + __p2);
+                        // this.info("relat2tester:" + path.resolve(process.cwd(), path.dirname(currentPath), __p2));
+
+                        if(fs.existsSync(path.resolve(process.cwd(), path.dirname(currentPath), __p2)))
+                            {
+                                //this.info("r2 ok");
+                                if(!__p2.startsWith(".")) __p2 = "./" + __p2;
+                                relativePath = __p2.replaceAll("\\", "/");
+                            }
                     }
-                    const correctedPath = relativePath.replace(/\\/g, "/");
-                    return `import '${"currenPath:" + currentPath + "_match:" + match}'`;
+                    // this.info("currentPath: " + currentPath + "     " + "match: " + match);
+                    // if(relativePath.startsWith("../"))
+                    //     {
+                    //         const newPath = relativePath.substring("../".length);
+                    //         //if (fs.existsSync(path.resolve(path.dirname(currentPath), relativePath)))
+                    //             relativePath = newPath;
+                    //     }
+                    // const correctedPath = relativePath.replace(/\\/g, "/");
+                    return `import '${relativePath}'`;
                 });
             })
             .then((fileContent) => fs.writeFile(currentPath, fileContent))
