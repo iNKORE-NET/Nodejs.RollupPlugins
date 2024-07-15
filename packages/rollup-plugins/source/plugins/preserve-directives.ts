@@ -4,12 +4,13 @@ import MagicString from "magic-string";
 import type { Plugin } from "rollup";
 import { createFilter } from "@rollup/pluginutils";
 
-export type PreserveDirectivesOptions = 
-{
-    suppressPreserveModulesWarning?: boolean;
-    include?: string[];
-    exclude?: string[];
-};
+export type PreserveDirectivesOptions =
+    {
+        suppressPreserveModulesWarning?: boolean;
+        include?: string[];
+        exclude?: string[];
+        removeDirectivesInBetween?: boolean;
+    };
 
 /**
  * This is a plugin that preserves directives like "use client" at the top of files.
@@ -23,16 +24,18 @@ export type PreserveDirectivesOptions =
  */
 
 function preserveDirectives
-({
-    suppressPreserveModulesWarning,
-    include = ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
-    exclude = [],
-}: PreserveDirectivesOptions = {}): Plugin 
+    ({
+        suppressPreserveModulesWarning,
+        include = ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
+        exclude = [],
+        removeDirectivesInBetween = true,
+
+    }: PreserveDirectivesOptions = {}): Plugin 
 {
-  // Skip CSS files by default, as this.parse() does not work on them
-  const excludePatterns = ["**/*.css", ...exclude];
-  const filter = createFilter(include, excludePatterns);
-  return {
+    // Skip CSS files by default, as this.parse() does not work on them
+    const excludePatterns = ["**/*.css", ...exclude];
+    const filter = createFilter(include, excludePatterns);
+    return {
         name: "preserve-directives",
         // Capture directives metadata during the transform phase
         transform(code, id) 
@@ -82,7 +85,7 @@ function preserveDirectives
         // only be one module per chunk.
         // Banners will already have been inserted here, so directives always
         // ends up at the absolute top.
-        renderChunk: 
+        renderChunk:
         {
             order: "post",
             handler(code, chunk, options) 
@@ -117,11 +120,39 @@ function preserveDirectives
                     if (chunkHasDirectives) 
                     {
                         const directiveStrings = chunkHasDirectives
-                            .map((directive) => `"${directive}"`)
+                            .map((directive) => `"${ directive }"`)
                             .join(";\n");
 
                         const s = new MagicString(code);
-                        s.prepend(`${directiveStrings};\n`);
+                        s.prepend(`${ directiveStrings };\n`);
+
+                        if (removeDirectivesInBetween)
+                        {
+                            // 现在有MagicString s, string directiveStrings，我需要对 s 进行处理，按行查找，查找 双引号或单引号包裹directiveStrings+分号的行，并将其删除。忽略大小写和空格
+
+                            const lowerDirective = directiveStrings.toLowerCase().trim().replace(/["']/g, '');
+                            const lines = s.original.split('\n');
+
+                            let foundCount = 0;
+                            // 逐行检查并处理
+                            for (let i = lines.length - 1; i >= 0; i--) 
+                            {
+                                // 移除行首尾空格，转换为小写以忽略大小写
+                                const line = lines[i].trim().toLowerCase();
+                                // 构建正则表达式，匹配双引号或单引号包裹的directiveStrings，后面紧跟分号
+                                const regex = new RegExp(`["']\\s*${ lowerDirective }\\s*["']\\s*;`);
+                                if (regex.test(line))
+                                {
+                                    // 如果匹配，删除该行
+                                    const start = s.original.lastIndexOf(lines[i], s.original.length);
+                                    s.remove(start, start + lines[i].length); // +1 为了包括换行符
+
+                                    foundCount++;
+                                }
+                            }
+                        }
+
+
                         const srcMap = s.generateMap({ includeContent: true });
 
                         return { code: s.toString(), map: srcMap };
