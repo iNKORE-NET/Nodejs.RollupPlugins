@@ -1,5 +1,5 @@
 -   A collection of some commonly used rollup plugins.
--   More info: https://github.com/iNKORE-Public/Rollup.Plugins
+-   More info: https://github.com/iNKORE-NET/Rollup.Plugins
 
 ---
 
@@ -25,7 +25,7 @@
 2. Add the plugins to your rollup.config file.
 
     ```typescript
-    import { preserveDirectives, ... } from "@inkore/rollup-plugins";
+    import { PreserveDirectivesPlugin, ... } from "@inkore/rollup-plugins";
 
     export default
     {
@@ -33,7 +33,7 @@
         {
             preserveModules: true,
         },
-        plugins: [ preserveDirectives(), ... ],
+        plugins: [ PreserveDirectivesPlugin(), ... ],
     };
     ```
 
