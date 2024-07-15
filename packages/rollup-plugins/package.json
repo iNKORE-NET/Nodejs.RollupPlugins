@@ -38,7 +38,7 @@
     "bugs": "https://github.com/iNKORE-Public/Rollup.Plugins/issues",
     "scripts": {
         "check": "tsc",
-        "build": "tsup src/index.ts --dts --format cjs,esm",
+        "build": "tsup source/index.ts --dts --format cjs,esm",
         "watch": "pnpm build --watch"
     },
     "peerDependencies": {
