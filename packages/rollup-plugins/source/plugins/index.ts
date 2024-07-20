@@ -16,7 +16,7 @@ export { default as PreserveCommentsPlugin } from "./preserve-comments";
 export { default as PreserveCssFilesPlugin } from "./preserve-css-files";
 export * from "./preserve-css-files";
 
-export { default as RelativeImportsPlugin } from "./relative-imports";
+// export { default as RelativeImportsPlugin } from "./relative-imports";
 export * from "./relative-imports";
 
 // export { default as Plugin_CodeCleanup } from "./code-cleanup";

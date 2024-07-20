@@ -64,6 +64,7 @@
         "@niceties/logger": "^1.1.13",
         "@rollup/pluginutils": "^5.1.0",
         "acorn": "^8.11.3",
+        "acorn-typescript": "^1.4.13",
         "acorn-walk": "^8.3.3",
         "colorette": "^2.0.20",
         "estree-walker": "^3.0.3",
