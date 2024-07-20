@@ -39,7 +39,7 @@
     "scripts": {
         "check": "tsc",
         "build": "tsup source/index.ts --dts --format cjs,esm",
-        "watch": "pnpm build --watch"
+        "dev": "pnpm build --watch"
     },
     "peerDependencies": {
         "glob": "^10.3.15",
@@ -64,6 +64,7 @@
         "@niceties/logger": "^1.1.13",
         "@rollup/pluginutils": "^5.1.0",
         "acorn": "^8.11.3",
+        "acorn-walk": "^8.3.3",
         "colorette": "^2.0.20",
         "estree-walker": "^3.0.3",
         "fs-extra": "^11.2.0",
@@ -77,6 +78,7 @@
     "devDependencies": {
         "@types/fs-extra": "^11.0.4",
         "@types/node": "^20.12.5",
+        "eslint": "^9.7.0",
         "glob": "^10.3.15",
         "rollup": "^4.9.5",
         "tsup": "^8.0.1",

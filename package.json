@@ -11,5 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "@types/node": "^20.12.5"
+  },
+  "devDependencies": {
+    "eslint": "^9.7.0"
   }
 }
