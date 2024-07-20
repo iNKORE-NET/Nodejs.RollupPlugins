@@ -53,7 +53,6 @@ export type RelativeDtsImportsPluginOptions =
 
 export function RelativeDtsImportsPlugin(_options?: Partial<RelativeDtsImportsPluginOptions>): Plugin
 {
-    console.log("RelativeDtsImportsPlugin");
     const options: RelativeDtsImportsPluginOptions =
     {
         sourceDirName: "source",
@@ -139,8 +138,6 @@ export function RelativeDtsImportsPlugin(_options?: Partial<RelativeDtsImportsPl
 
 function relat(importPath: string, filePath: string, sourceDirName: string, dtsBuildDir: string)
 {
-    console.log(importPath, filePath);
-
     if (typeof importPath === "string")
     {
         if (importPath.startsWith("./") || importPath.startsWith("../"))
