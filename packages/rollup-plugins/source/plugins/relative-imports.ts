@@ -80,7 +80,7 @@ export function RelativeDtsImportsPlugin(_options?: Partial<RelativeDtsImportsPl
                 {
                     const [fullMatch, , modulePath] = match;
                     // 计算相对路径
-                    console.log(modulePath);
+
                     const relativePath = relat(modulePath, path.relative(process.cwd(), file), options.sourceDirName, options.dtsBuildDir);
 
                     if (relativePath != null)
