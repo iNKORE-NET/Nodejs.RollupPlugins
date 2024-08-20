@@ -133,22 +133,31 @@ function preserveDirectives
                             const lowerDirective = directiveStrings.toLowerCase().trim().replace(/["']/g, '');
                             const lines = s.original.split('\n');
 
-                            let foundCount = 0;
+                            //let foundCount = 0;
                             // 逐行检查并处理
                             for (let i = lines.length - 1; i >= 0; i--) 
                             {
                                 // 移除行首尾空格，转换为小写以忽略大小写
                                 const line = lines[i].trim().toLowerCase();
                                 // 构建正则表达式，匹配双引号或单引号包裹的directiveStrings，后面紧跟分号
-                                const regex = new RegExp(`["']\\s*${ lowerDirective }\\s*["']\\s*;`);
-                                if (regex.test(line))
-                                {
-                                    // 如果匹配，删除该行
-                                    const start = s.original.lastIndexOf(lines[i], s.original.length);
-                                    s.remove(start, start + lines[i].length); // +1 为了包括换行符
+                                //const regex = new RegExp(`["']\\s*${ lowerDirective }\\s*["']\\s*;`);
+                                // if (regex.test(line))
+                                // {
+                                //     // 如果匹配，删除该行
+                                //     const start = s.original.lastIndexOf(lines[i], s.original.length);
+                                //     s.remove(start, start + lines[i].length); // +1 为了包括换行符
 
-                                    foundCount++;
-                                }
+                                //     foundCount++;
+                                // }
+
+                                // 查找所有存在的 directiveStrings（单或双引号包裹的 lowerDirective 后面紧跟分号） 并移除
+                                // 定义正则表达式，匹配单引号或双引号包裹的 lowerDirective 后面紧跟分号
+                                //const directiveRegex = /['"]lowerDirective['"];/g;
+
+                                const regex = new RegExp(`['"]${ lowerDirective }['"];`, 'g');
+
+                                // 使用正则表达式替换所有匹配项为空字符串
+                                s.replace(regex, '');
                             }
                         }
 
