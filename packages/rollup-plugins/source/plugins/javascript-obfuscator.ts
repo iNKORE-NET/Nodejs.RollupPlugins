@@ -81,8 +81,6 @@ function javascriptObfuscator(override?: Partial<RollupPluginObfuscatorOptions>)
                 sourceMap: true,
             });
 
-            fs.writeFileSync(path.join("F:/tesy", path.basename(id)), obfuscationResult.getObfuscatedCode());
-
             return {
                 code: obfuscationResult.getObfuscatedCode(),
                 map: obfuscationResult.getSourceMap(),
