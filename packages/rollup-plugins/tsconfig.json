@@ -1,36 +1,36 @@
 {
-  "compilerOptions": {
-    "baseUrl": ".",
-    "outDir": "./dist/",
-    "target": "esnext",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "strict": true,
-    "noEmit": false,
-    "allowJs": true,
-    "module": "esnext",
-    "skipLibCheck": true,
-    "noImplicitAny": false,
-    "noImplicitThis": false,
-    "esModuleInterop": true,
-    "isolatedModules": true,
-    "strictNullChecks": true,
-    "resolveJsonModule": true,
-    "removeComments": true,
-    "moduleResolution": "node",
-    "noFallthroughCasesInSwitch": true,
-    "useUnknownInCatchVariables": false,
-    "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
-    "declaration": true,
-    "incremental": true,
-    "tsBuildInfoFile": "./dist/.tsbuildinfo",
-  },
-  "files": ["source/index.ts"],
-  "include": [
-    "source/**/*",
-  ]
+    "compilerOptions":
+    {
+        "baseUrl": ".",
+        "outDir": "./dist/",
+        "target": "esnext",
+        "lib":
+        [
+            "esnext"
+        ],
+        "strict": true,
+        "noEmit": false,
+        "allowJs": true,
+        "module": "esnext",
+        "skipLibCheck": true,
+        "noImplicitAny": false,
+        "noImplicitThis": false,
+        "esModuleInterop": true,
+        "isolatedModules": true,
+        "strictNullChecks": true,
+        "resolveJsonModule": true,
+        "removeComments": false,
+        "moduleResolution": "node",
+        "noFallthroughCasesInSwitch": true,
+        "useUnknownInCatchVariables": false,
+        "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true,
+        "declaration": true,
+        "incremental": true,
+        "tsBuildInfoFile": "./dist/.tsbuildinfo",
+    },
+    "files": [ "source/index.ts" ],
+    "include": [
+        "source/**/*",
+    ]
 }
