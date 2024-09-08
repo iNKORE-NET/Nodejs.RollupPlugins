@@ -1,7 +1,7 @@
 {
     "name": "@inkore/rollup-plugins",
     "description": "A collection of some commonly used rollup plugins.",
-    "version": "0.1.7",
+    "version": "0.1.8",
     "author": "NotYoojun.!",
     "license": "LGPL-2.1-or-later",
     "keywords": [
