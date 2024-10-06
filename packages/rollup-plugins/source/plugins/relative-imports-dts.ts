@@ -13,11 +13,15 @@ export type RelativeDtsImportsPluginOptions =
     /**
      * - Auto: Automatically find all directories in the project root and use them as root directories.
      * - Strings in the array: the directories to be used as root directories. relative to the current working directory.
-     * - Objects in the array: the directories to be used as root directories. The `alias` is the name of the root directory, and the `path` is the absolute path to the root directory.
+     * - Objects in the array: the directories to be used as root directories. The `alias` is the name of the root directory that all the imports starting with it will be resolved to the `path`.
+     * 
+     * For example, if the root directory is `./dist/types` and the import is `source/components/component`, the plugin will resolve it as full path to `./dist/types/components/component` (replace `source` with `./dist/types`).
+     * If multiple aliases is defined in one object, you may use the `*` or `%ALIAS_NAME%` to represent the actual alias in the path.
+     * 
+     * @example [{ alias: "source", path: "./dist/types" }]: Resolve `source/folder-a/folder-b` to `./dist/types/folder-a/folder-b`.
+     * @example [{ alias: "*", path: "./dist/types/*" }]: Resolve `source/folder-a/folder-b` to `./dist/types/source/folder-a/folder-b`.
      */
-    rootDirectories?: (string | { alias: string; path: string; })[] | "auto";
-
-
+    rootDirectories?: (string | { alias: string | string[]; path: string; })[] | "auto";
 
     // /**
     //  * When there arer two directories 'source' and 'dist'. In one dts file it imports from 'source/path/to'.
@@ -74,15 +78,38 @@ export function RelativeDtsImportsPlugin(_options?: Partial<RelativeDtsImportsPl
     }
     else if (Array.isArray(options.rootDirectories))
     {
+        function check(alias: string)
+        {
+            if (["*", "'", "\"", "`", "!"].some(c => Object.keys(rootDirectories).some(k => k.includes(c))))
+            {
+                throw new Error("The alias cannot contain any of the following characters: '*', '\"', '\'', '`', '!'.");
+            }
+        }
+
         for (const dir of options.rootDirectories)
         {
             if (typeof dir === "string")
             {
-                rootDirectories[normalizePath(dir).toLowerCase()] = path.resolve(dir);
+                const alias = dir; check(alias);
+                rootDirectories[normalizePath(alias).toLowerCase()] = path.resolve(dir);
             }
             else
             {
-                rootDirectories[normalizePath(dir.alias).toLowerCase()] = path.resolve(dir.path);
+                if (Array.isArray(dir.alias))
+                {
+                    for (const alias of dir.alias)
+                    {
+                        check(alias);
+                        rootDirectories[normalizePath(alias).toLowerCase()] = dir.path.toUpperCase().includes("%ALIAS_NAME%") 
+                            ? dir.path.replace(/%ALIAS_NAME%/gi, alias)
+                            : dir.path.replaceAll("*", alias);
+                    }
+                }
+                else
+                {
+                    check(dir.alias);
+                    rootDirectories[normalizePath(dir.alias).toLowerCase()] = path.resolve(dir.path);
+                }
             }
         }
     }
@@ -181,16 +208,20 @@ export function RelativeDtsImportsPlugin(_options?: Partial<RelativeDtsImportsPl
                             if (originalSource.startsWith("/")) continue;
                             if (originalSourcePts.length === 0) continue;
 
+                            function change(alias: string, pathTo: string)
+                            {
+                                const newSourceAbs = normalizePath(path.resolve(pathTo, originalSource.substring(originalSourcePts[0].length + 1)));
+                                const currentFileDir = path.resolve(outputOptions.dir ?? ".", path.dirname(file.fileName));
+                                const newSource = path.relative(currentFileDir, newSourceAbs).replaceAll("\\", "/");
+
+                                ms.overwrite(imp.source.start, imp.source.end, newSource);
+                            }
+
                             for (const dir of Object.keys(rootDirectories))
                             {
-                                const rootDir = rootDirectories[dir];
-                                if (originalSourcePts[0].toLowerCase() == dir)
+                                if (dir.toLowerCase() === originalSourcePts[0].toLowerCase())
                                 {
-                                    const newSourceAbs = normalizePath(rootDir + "/" + originalSource.substring(originalSourcePts[0].length + 1))
-                                    const currentFileDir = path.resolve(outputOptions.dir ?? ".", path.dirname(file.fileName));
-                                    const newSource = path.relative(currentFileDir, newSourceAbs).replaceAll("\\", "/");
-
-                                    ms.overwrite(imp.source.start, imp.source.end, newSource);
+                                    change(dir, rootDirectories[dir]);
                                     break;
                                 }
                             }
