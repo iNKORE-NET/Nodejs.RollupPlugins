@@ -1,14 +1,14 @@
 // https://github.com/getkey/rollup-plugin-obfuscator
 
 
-import { Plugin } from 'rollup';
-import { createFilter } from '@rollup/pluginutils';
+import { Plugin } from "rollup";
+import { createFilter } from "@rollup/pluginutils";
 
-import { ObfuscationResult, ObfuscatorOptions } from 'javascript-obfuscator';
+import { ObfuscationResult, ObfuscatorOptions } from "javascript-obfuscator";
 
-import pkg from 'javascript-obfuscator';
+import pkg from "javascript-obfuscator";
 
-import fs from 'fs';
+import fs from "fs";
 import path from "path";
 
 const { obfuscate } = pkg;
@@ -48,8 +48,8 @@ export interface RollupPluginObfuscatorOptions
 const defaultOptions = {
     global: false,
     options: {},
-    include: ['**/*.js', '**/*.ts'],
-    exclude: ['node_modules/**'],
+    include: ["**/*.js", "**/*.ts"],
+    exclude: ["node_modules/**"],
     obfuscate,
     shouldObfuscate: undefined
 };
@@ -63,7 +63,7 @@ function javascriptObfuscator(override?: Partial<RollupPluginObfuscatorOptions>)
     const filter = createFilter(options.include, options.exclude);
 
     return {
-        name: 'rollup-plugin-obfuscator',
+        name: "rollup-plugin-obfuscator",
 
         transform: options.global ? undefined : (code, id) => 
         {

@@ -1,5 +1,5 @@
-import * as acorn from 'acorn';
-import { createFilter, FilterPattern } from '@rollup/pluginutils';
+import * as acorn from "acorn";
+import { createFilter, FilterPattern } from "@rollup/pluginutils";
 import MagicString from "magic-string";
 
 type CommentPreservingCallback = (comment: acorn.Comment) => boolean;
@@ -43,7 +43,7 @@ export default function preserveComments(options: PreserveCommentsOptions = {})
     } = options;
 
     return {
-        name: 'preserve-comments',
+        name: "preserve-comments",
         renderChunk(code: string, chunk: any) 
         {
             // 检查文件后缀名
@@ -67,11 +67,11 @@ export default function preserveComments(options: PreserveCommentsOptions = {})
 
                 let shouldKeepComment: CommentPreservingCallback = defaultCommentPreservingCallback;
 
-                if (typeof shouldPreserve === 'boolean') 
+                if (typeof shouldPreserve === "boolean") 
                 {
                     shouldKeepComment = () => shouldPreserve;
                 }
-                else if (typeof shouldPreserve === 'function') 
+                else if (typeof shouldPreserve === "function") 
                 {
                     shouldKeepComment = shouldPreserve;
                 }
@@ -106,7 +106,7 @@ export default function preserveComments(options: PreserveCommentsOptions = {})
                         }
 
                         // 如果此时的end位置是一个换行符，再向后推进一位，以删除整个空行
-                        if (code[end] === '\n')
+                        if (code[end] === "\n")
                         {
                             end++;
                         }

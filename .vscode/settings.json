@@ -1,8 +1,5 @@
 {
     "terminal.integrated.cwd": "${workspaceFolder}//packages/rollup-plugins",
     "editor.defaultFormatter": null,
-    "[typescript]": {
-        "editor.defaultFormatter": "vscode.typescript-language-features"
-    },
     //"terminal.integrated.cursorStyle": "line"
 }

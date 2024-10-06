@@ -24,13 +24,13 @@ export type PreserveDirectivesOptions =
  */
 
 function preserveDirectives
-    ({
-        suppressPreserveModulesWarning,
-        include = ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
-        exclude = [],
-        removeDirectivesInBetween = true,
+({
+    suppressPreserveModulesWarning,
+    include = ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
+    exclude = [],
+    removeDirectivesInBetween = true,
 
-    }: PreserveDirectivesOptions = {}): Plugin 
+}: PreserveDirectivesOptions = {}): Plugin 
 {
     // Skip CSS files by default, as this.parse() does not work on them
     const excludePatterns = ["**/*.css", ...exclude];
@@ -130,8 +130,8 @@ function preserveDirectives
                         {
                             // 现在有MagicString s, string directiveStrings，我需要对 s 进行处理，按行查找，查找 双引号或单引号包裹directiveStrings+分号的行，并将其删除。忽略大小写和空格
 
-                            const lowerDirective = directiveStrings.toLowerCase().trim().replace(/["']/g, '');
-                            const lines = s.original.split('\n');
+                            const lowerDirective = directiveStrings.toLowerCase().trim().replace(/["']/g, "");
+                            const lines = s.original.split("\n");
 
                             //let foundCount = 0;
                             // 逐行检查并处理
@@ -154,10 +154,10 @@ function preserveDirectives
                                 // 定义正则表达式，匹配单引号或双引号包裹的 lowerDirective 后面紧跟分号
                                 //const directiveRegex = /['"]lowerDirective['"];/g;
 
-                                const regex = new RegExp(`['"]${ lowerDirective }['"];`, 'g');
+                                const regex = new RegExp(`['"]${ lowerDirective }['"];`, "g");
 
                                 // 使用正则表达式替换所有匹配项为空字符串
-                                s.replace(regex, '');
+                                s.replace(regex, "");
                             }
                         }
 
