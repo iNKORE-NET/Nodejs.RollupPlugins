@@ -1,6 +1,6 @@
 <p align="center">
   <a target="_blank" rel="noopener noreferrer">
-    <img width="128" src="https://raw.githubusercontent.com/iNKORE-Public/.github/main/assets/Inkore_Badge.png?raw=true)" alt="iNKORE Logo">
+    <img width="128" src="https://github.com/iNKORE-NET/.github/blob/main/assets/icons/NodejsLibrary_256w.png?raw=true" alt="iNKORE Logo">
   </a>
 </p>
 
