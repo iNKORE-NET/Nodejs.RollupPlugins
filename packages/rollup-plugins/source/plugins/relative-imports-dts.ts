@@ -53,7 +53,7 @@ type TextRange = { start: number, end: number };
  * 
  * This plugin need to be placed after the `typescript` plugin.
  */
-export function RelativeDtsImportsPlugin(_options?: Partial<RelativeDtsImportsPluginOptions>): Plugin
+export default function RelativeDtsImportsPlugin(_options?: Partial<RelativeDtsImportsPluginOptions>): Plugin
 {
     const options: RelativeDtsImportsPluginOptions =
     {
