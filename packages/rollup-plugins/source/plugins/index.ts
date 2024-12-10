@@ -17,7 +17,7 @@ export * from "./preserve-comments";
 export { default as PreserveCssFilesPlugin } from "./preserve-css-files";
 export * from "./preserve-css-files";
 
-export { default as RelativeImportsPlugin } from "./relative-imports-dts";
+export { default as RelativeDtsImportsPlugin } from "./relative-imports-dts";
 export * from "./relative-imports-dts";
 
 export { default as WriteOnlyChangesPlugin } from "./write-only-changes";
