@@ -45,6 +45,8 @@
 
 -   [plugin-exec](https://github.com/kshutkin/rollup-extras/blob/main/plugin-exec): Execute some code when the bundle you are building is finished.
 
+-   [plugin-changes-only](https://github.com/prantlf/rollup-plugin-write-only-changes): Writing files to the output directory only if their contents actually changed.
+
 executeScript
 
 # 🤔 Quick Start
