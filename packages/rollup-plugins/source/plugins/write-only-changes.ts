@@ -1,7 +1,7 @@
 // https://github.com/prantlf/rollup-plugin-write-only-changes/blob/master/lib/index.js
 
-import { readFile } from "fs/promises";
-import { dirname, join } from "path";
+import { readFile } from "node:fs/promises";
+import { dirname, join } from "node:path";
 import type { Plugin } from "rollup";
 
 export type WriteOnlyChangesLogOptions =
