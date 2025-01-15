@@ -1,9 +1,13 @@
 {
     "name": "@inkore/rollup-plugins",
     "description": "A collection of some commonly used rollup plugins.",
-    "version": "0.2.0",
-    "author": "notyoojun",
-    "license": "LGPL-2.1-or-later",
+    "version": "0.3.0",
+    "scripts": 
+    {
+        "check": "tsc",
+        "dev": "rollup -c rollup.config.mjs --watch --environment MODE:dev",
+        "build": "rollup -c rollup.config.mjs --environment MODE:prod"
+    },
     "keywords": 
     [
         "rollup-plugin",
@@ -53,11 +57,6 @@
     },
     "homepage": "https://docs.inkore.net/rollup-plugins",
     "bugs": "https://github.com/iNKORE-NET/Rollup.Plugins/issues",
-    "scripts": 
-    {
-        "check": "tsc",
-        "dev": "rollup -c rollup.config.mjs -w"
-    },
     "peerDependencies": 
     {
         "glob": "^10.3.15",
@@ -105,5 +104,7 @@
         "LICENSE",
         "README.md",
         "CHANGELOG.md"
-    ]
+    ],
+    "author": "notyoojun",
+    "license": "LGPL-2.1-or-later"
 }
