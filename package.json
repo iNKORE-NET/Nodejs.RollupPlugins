@@ -6,13 +6,18 @@
         "dev": "pnpm -C packages/rollup-plugins watch",
         "check": "pnpm -C packages/rollup-plugins check"
     },
-    "keywords": [ ],
+    "keywords": [],
     "author": "NotYoojun.!",
     "license": "ISC",
     "dependencies": {
         "@types/node": "^20.12.5"
     },
     "devDependencies": {
+        "@rollup/plugin-node-resolve": "^16.0.0",
+        "@rollup/plugin-typescript": "^12.1.2",
+        "@typescript-eslint/eslint-plugin": "^6.13.2",
+        "@typescript-eslint/parser": "^6.13.2",
+        "@typescript-eslint/typescript-estree": "^7.2.0",
         "eslint": "^8.55.0",
         "eslint-config-airbnb": "^19.0.4",
         "eslint-config-airbnb-typescript": "^17.1.0",
@@ -26,8 +31,6 @@
         "eslint-plugin-react-hooks": "^4.6.0",
         "eslint-plugin-unused-imports": "^3.0.0",
         "prettier": "^3.1.0",
-        "@typescript-eslint/eslint-plugin": "^6.13.2",
-        "@typescript-eslint/parser": "^6.13.2",
-        "@typescript-eslint/typescript-estree": "^7.2.0"
+        "rollup": "^4.9.5"
     }
 }

@@ -13,6 +13,8 @@
         "allowJs": true,
         "module": "esnext",
         "skipLibCheck": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
         "noImplicitAny": false,
         "noImplicitThis": false,
         "esModuleInterop": true,
@@ -26,11 +28,14 @@
         "allowSyntheticDefaultImports": true,
         "forceConsistentCasingInFileNames": true,
         "declaration": true,
-        "incremental": true,
-        "tsBuildInfoFile": "./dist/.tsbuildinfo",
+        "incremental": false,
     },
-    "files": [ "source/index.ts" ],
-    "include": [
-        "source/**/*",
-    ]
+    "include":
+    [
+        "source/",
+    ],
+    "paths":
+    {
+        "source/*": [ "./source/*" ]
+    }
 }

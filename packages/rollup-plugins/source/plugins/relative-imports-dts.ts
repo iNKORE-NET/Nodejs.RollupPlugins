@@ -51,7 +51,7 @@ type TextRange = { start: number, end: number };
  * For example, it changes `"source/components/component"` to `"../components/component"`.
  * This is useful when you have a project with a complex structure and you want to make the imports more portable.
  * 
- * This plugin need to be placed after the `typescript` plugin.
+ * This plugin need to be placed **AFTER** the `typescript` plugin.
  */
 export default function RelativeDtsImportsPlugin(_options?: Partial<RelativeDtsImportsPluginOptions>): Plugin
 {

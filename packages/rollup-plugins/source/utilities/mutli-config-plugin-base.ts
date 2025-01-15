@@ -1,13 +1,14 @@
-import { NormalizedOutputOptions, OutputBundle, Plugin, PluginContext } from 'rollup';
+import { NormalizedOutputOptions, OutputBundle, Plugin, PluginContext } from "rollup";
 
 type ExecuteFn = (this: PluginContext, options: NormalizedOutputOptions, bundle: OutputBundle) => void | Promise<void>;
 type OnFinalHook = (this: PluginContext, options: NormalizedOutputOptions, bundle: OutputBundle, remainingConfigsCount: number, remainingOutputsCount: number) => void | Promise<void>;
 
-export function multiConfigPluginBase(useWriteBundle: boolean, pluginName: string, execute: ExecuteFn, onFinalHook?: OnFinalHook): Plugin & { api: { addInstance(): Plugin } } {
+export function multiConfigPluginBase(useWriteBundle: boolean, pluginName: string, execute: ExecuteFn, onFinalHook?: OnFinalHook): Plugin & { api: { addInstance(): Plugin } } 
+{
 
-    const finalHook = useWriteBundle ? 'writeBundle' : 'generateBundle';
+    const finalHook = useWriteBundle ? "writeBundle" : "generateBundle";
 
-    let remainingOutputsCount = 0, configsCount = 0;
+    let remainingOutputsCount = 0; let configsCount = 0;
 
     const configs = new Set<number>();
 
@@ -23,14 +24,16 @@ export function multiConfigPluginBase(useWriteBundle: boolean, pluginName: strin
 
     return instance;
 
-    function addInstance() {
+    function addInstance() 
+    {
         const configId = ++configsCount;
         configs.add(configId);
 
         return {
             name: `${pluginName}#${configId}`,
 
-            renderStart: () => {
+            renderStart: () => 
+            {
                 configs.delete(configId);
                 return renderStart();
             },
@@ -39,22 +42,30 @@ export function multiConfigPluginBase(useWriteBundle: boolean, pluginName: strin
         } as Plugin;
     }
 
-    function renderStart() {
+    function renderStart() 
+    {
         ++remainingOutputsCount;
     }
 
-    async function writeBundle(this: PluginContext, options: NormalizedOutputOptions, bundle: OutputBundle) {
+    async function writeBundle(this: PluginContext, options: NormalizedOutputOptions, bundle: OutputBundle) 
+    {
         --remainingOutputsCount;
-        if (onFinalHook) {
+        if (onFinalHook) 
+        {
             await onFinalHook.call(this, options, bundle, configs.size, remainingOutputsCount);
         }
-        if (configs.size === 0 && remainingOutputsCount === 0) {
+        if (configs.size === 0 && remainingOutputsCount === 0) 
+        {
             // do work
-            try {
+            try 
+            {
                 await execute.call(this, options, bundle);
-            } finally {
+            }
+            finally 
+            {
                 // reset configs
-                for (let i = configsCount; i > 0; --i) {
+                for (let i = configsCount; i > 0; --i) 
+                {
                     configs.add(i);
                 }
             }

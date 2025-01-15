@@ -8,8 +8,7 @@ export type GetOnWarnHandlerOptions =
 
 export function GetOnWarnHandler(options: GetOnWarnHandlerOptions)
 {
-    const 
-    { 
+    const { 
         useDefaultsExclusions = true,
         exclude = [],
         shouldWarn = undefined,

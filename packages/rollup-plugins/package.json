@@ -17,24 +17,34 @@
     },
     "type": "module",
     "types": "dist/index.d.ts",
-    "main": "dist/index.cjs",
     "module": "dist/index.js",
     "exports": 
     {
         ".": 
         {
-            "import": 
-            {
-                "types": "./dist/index.d.ts",
-                "default": "./dist/index.js"
-            },
-            "require": 
-            {
-                "types": "./dist/index.d.cts",
-                "default": "./dist/index.cjs"
-            }
+            "default": "./dist/index.js",
+            "types": "./dist/types/index.d.ts"
         },
-        "./package.json": "./package.json"
+        "./utilities": 
+        {
+            "default": "./dist/utilities/index.js",
+            "types": "./dist/utilities/index.d.ts"
+        },
+        "./utilities/*": 
+        {
+            "default": "./dist/utilities/*.js",
+            "types": "./dist/utilities/*.d.ts"
+        },
+        "./plugins/*": 
+        {
+            "default": "./dist/plugins/*.js",
+            "types": "./dist/plugins/*.d.ts"
+        },
+        "./*": 
+        {
+            "default": "./dist/plugins/*.js",
+            "types": "./dist/plugins/*.d.ts"
+        }
     },
     "repository": 
     {
@@ -46,8 +56,7 @@
     "scripts": 
     {
         "check": "tsc",
-        "build": "tsup source/index.ts --dts --format cjs,esm",
-        "dev": "pnpm build --watch"
+        "dev": "rollup -c rollup.config.mjs -w"
     },
     "peerDependencies": 
     {
@@ -76,7 +85,7 @@
     "dependencies": 
     {
         "@niceties/logger": "^1.1.13",
-        "@rollup/pluginutils": "^5.1.0",
+        "@rollup/pluginutilities": "^5.1.0",
         "acorn": "^8.11.3",
         "acorn-typescript": "^1.4.13",
         "acorn-walk": "^8.3.3",
@@ -92,12 +101,12 @@
     },
     "devDependencies": 
     {
+        "@swc/core": "^1.10.7",
         "@types/fs-extra": "^11.0.4",
         "@types/node": "^20.12.5",
-        "glob": "^10.3.15",
-        "rollup": "^4.9.5",
-        "tsup": "^8.0.1",
-        "typescript": "^5.3.3",
+        "@typescript-eslint/eslint-plugin": "^6.13.2",
+        "@typescript-eslint/parser": "^6.13.2",
+        "@typescript-eslint/typescript-estree": "^7.2.0",
         "eslint": "^8.55.0",
         "eslint-config-airbnb": "^19.0.4",
         "eslint-config-airbnb-typescript": "^17.1.0",
@@ -110,10 +119,11 @@
         "eslint-plugin-react": "^7.33.2",
         "eslint-plugin-react-hooks": "^4.6.0",
         "eslint-plugin-unused-imports": "^3.0.0",
+        "glob": "^10.3.15",
         "prettier": "^3.1.0",
-        "@typescript-eslint/eslint-plugin": "^6.13.2",
-        "@typescript-eslint/parser": "^6.13.2",
-        "@typescript-eslint/typescript-estree": "^7.2.0"
+        "rollup": "^4.9.5",
+        "tsup": "^8.0.1",
+        "typescript": "^5.3.3"
     },
     "files": 
     [

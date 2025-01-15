@@ -1,18 +1,19 @@
 // https://github.com/sheltondong/rollup-plugin-clear
 
-import * as fs from 'fs';
-import * as path from 'path';
-import * as rimraf from 'rimraf';
+import * as fs from "fs";
+import * as path from "path";
+import * as rimraf from "rimraf";
 
 interface Options {
     targets: string[];
     watch?: boolean;
 }
 
-const deleteDirectories = (options: Options) => {
+const deleteDirectories = (options: Options) => 
+{
     const targets = options.targets || [];
     // 在rollup watch模式下，当recompile的时候是否clear，默认false
-    const watch = options.watch === true ? true : false;
+    const watch = options.watch === true;
     const workspace = process.cwd();
 
     /**
@@ -20,22 +21,28 @@ const deleteDirectories = (options: Options) => {
      *
      * @param {array} targets
      */
-    const clear = (targets: string[]) => {
-        for (let index = 0; index < targets.length; index++) {
+    const clear = (targets: string[]) => 
+    {
+        for (let index = 0; index < targets.length; index++) 
+        {
             const e = targets[index];
             const target = path.resolve(workspace, e);
-            if (fs.existsSync(target)) {
+            if (fs.existsSync(target)) 
+            {
                 rimraf.sync(target);
-                console.log('cleared: ', target);
+                // eslint-disable-next-line no-console
+                console.log("cleared: ", target);
             }
         }
     };
     clear(targets);
 
     return {
-        name: 'clear',
-        load: (id: string) => {
-            if (watch) {
+        name: "clear",
+        load: (id: string) => 
+        {
+            if (watch) 
+            {
                 clear(targets);
             }
             return null;
