@@ -86,7 +86,7 @@ function PreserveCssFile(options: PreserveCssFileOptions = {}): Plugin
                 }
                 else if (Array.isArray(options.input))
                 {
-                    (options.input as any[]).forEach((inputOptions) => inputPaths.push("dir" in inputOptions ? inputOptions.dir as string : inputOptions))
+                    (options.input as any[]).forEach((inputOptions) => inputPaths.push((typeof inputOptions === "object" && "dir" in inputOptions) ? inputOptions.dir as string : inputOptions))
                 }
             }
         },
