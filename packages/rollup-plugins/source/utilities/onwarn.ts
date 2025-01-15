@@ -1,16 +1,39 @@
 export type GetOnWarnHandlerOptions =
 {
-    useDefaultsExclusions?: boolean;
-    exclude?: string[];
-    shouldWarn?: (message: string, raw: string | object, options: GetOnWarnHandlerOptions) => boolean;
+    /** Automatically filters out some warnings that are actually normal when using the plugins. We STRONGLY recommend to keep this enabled. Default is true. */
+    useDefaultExclusions?: boolean;
+    /**
+     * List of strings that will be used to filter out warnings.
+     * When a warning message includes any of these strings, it will be ignored.
+     */
+    exclusions?: string[];
+    /**
+     * A custom function that will be used to determine if a warning should be shown or not. This function will have the highest priority.
+     * @param message 
+     * @param raw 
+     * @param options 
+     * @returns If true, the warning will be shown. If false, it will be ignored. If undefined, the default behavior will be used (exclusions).
+     */
+    shouldWarn?: (message: string, raw: string | object, options: GetOnWarnHandlerOptions) => (boolean | void);
+    /**
+     * If true, the comparison of the warning message with the exclusion list will be case-insensitive. Default is true.
+     */
     ignoreCase?: boolean;
 }
 
-export function GetOnWarnHandler(options: GetOnWarnHandlerOptions)
+/**
+ * Get a onWarn handler that can be used in rollup plugins. 
+ * You can also provide a custom function to determine if a warning should be shown or not.
+ * @example
+ * ```ts
+ * export default { ..., onwarn: onWarnHandler({ exclusions: ["some warning message u dont wanna see"] }) }
+ * ```
+ */
+export function onWarnHandler(options: GetOnWarnHandlerOptions)
 {
     const { 
-        useDefaultsExclusions = true,
-        exclude = [],
+        useDefaultExclusions = true,
+        exclusions = [],
         shouldWarn = undefined,
         ignoreCase = true
 
@@ -53,20 +76,22 @@ export function GetOnWarnHandler(options: GetOnWarnHandlerOptions)
         // Check if should warn
         // ----------
 
-        let shouldWarnResult = true;
+        let shouldWarnResult: boolean | undefined = undefined;
 
-        if (shouldWarn == undefined)
+        if (shouldWarn)
+            shouldWarnResult = shouldWarn(warnMessage, warning, options) ?? undefined;
+
+        if (shouldWarnResult === undefined)
         {
             const excludeList =
             [
-                ...(useDefaultsExclusions ? 
+                ...(useDefaultExclusions ? 
                     [
                         "Module level directives cause errors when bundled",
                         "@@_MAGIC_PATH_@@",
 
                     ] : []),
-
-                ...exclude
+                ...exclusions
             ];
 
             if (ignoreCase)
@@ -84,10 +109,7 @@ export function GetOnWarnHandler(options: GetOnWarnHandlerOptions)
                 }
             }
         }
-        else
-        {
-            shouldWarnResult = shouldWarn(warnMessage, warning, options);
-        }
+        
 
         if (shouldWarnResult)
         {
