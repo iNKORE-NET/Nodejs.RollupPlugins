@@ -85,7 +85,7 @@
     "dependencies": 
     {
         "@niceties/logger": "^1.1.13",
-        "@rollup/pluginutilities": "^5.1.0",
+        "@rollup/pluginutils": "^5.1.0",
         "acorn": "^8.11.3",
         "acorn-typescript": "^1.4.13",
         "acorn-walk": "^8.3.3",
@@ -99,36 +99,9 @@
         "rimraf": "^5.0.5",
         "skip-regex": "^1.0.2"
     },
-    "devDependencies": 
-    {
-        "@swc/core": "^1.10.7",
-        "@types/fs-extra": "^11.0.4",
-        "@types/node": "^20.12.5",
-        "@typescript-eslint/eslint-plugin": "^6.13.2",
-        "@typescript-eslint/parser": "^6.13.2",
-        "@typescript-eslint/typescript-estree": "^7.2.0",
-        "eslint": "^8.55.0",
-        "eslint-config-airbnb": "^19.0.4",
-        "eslint-config-airbnb-typescript": "^17.1.0",
-        "eslint-config-prettier": "^9.1.0",
-        "eslint-import-resolver-typescript": "^3.6.1",
-        "eslint-plugin-import": "^2.29.0",
-        "eslint-plugin-jsx-a11y": "^6.8.0",
-        "eslint-plugin-perfectionist": "^2.5.0",
-        "eslint-plugin-prettier": "^5.0.1",
-        "eslint-plugin-react": "^7.33.2",
-        "eslint-plugin-react-hooks": "^4.6.0",
-        "eslint-plugin-unused-imports": "^3.0.0",
-        "glob": "^10.3.15",
-        "prettier": "^3.1.0",
-        "rollup": "^4.9.5",
-        "tsup": "^8.0.1",
-        "typescript": "^5.3.3"
-    },
     "files": 
     [
         "dist",
-        "src/**/*",
         "LICENSE",
         "README.md",
         "CHANGELOG.md"

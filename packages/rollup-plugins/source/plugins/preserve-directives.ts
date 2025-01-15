@@ -5,12 +5,12 @@ import type { Plugin } from "rollup";
 import { createFilter } from "@rollup/pluginutils";
 
 export type PreserveDirectivesOptions =
-    {
-        suppressPreserveModulesWarning?: boolean;
-        include?: string[];
-        exclude?: string[];
-        removeDirectivesInBetween?: boolean;
-    };
+{
+    suppressPreserveModulesWarning?: boolean;
+    include?: string[];
+    exclude?: string[];
+    removeDirectivesInBetween?: boolean;
+};
 
 /**
  * This is a plugin that preserves directives like "use client" at the top of files.
