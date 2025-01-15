@@ -49,10 +49,10 @@
     "repository": 
     {
         "type": "git",
-        "url": "https://github.com/iNKORE-Public/Rollup.Plugins"
+        "url": "https://github.com/iNKORE-NET/Rollup.Plugins"
     },
-    "homepage": "https://github.com/iNKORE-Public/Rollup.Plugins#readme",
-    "bugs": "https://github.com/iNKORE-Public/Rollup.Plugins/issues",
+    "homepage": "https://docs.inkore.net/rollup-plugins",
+    "bugs": "https://github.com/iNKORE-NET/Rollup.Plugins/issues",
     "scripts": 
     {
         "check": "tsc",

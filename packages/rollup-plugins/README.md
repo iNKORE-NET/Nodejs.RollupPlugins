@@ -1,5 +1,6 @@
 -   A collection of some commonly used rollup plugins.
 -   More info: https://github.com/iNKORE-NET/Rollup.Plugins
+-   Documentation site is under construction and may not be available at the moment you're reading this.
 
 ---
 
