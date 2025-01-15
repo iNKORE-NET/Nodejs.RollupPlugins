@@ -1,47 +1,56 @@
 {
     "name": "@inkore/rollup-plugins",
     "description": "A collection of some commonly used rollup plugins.",
-    "version": "0.1.8",
-    "author": "NotYoojun.!",
+    "version": "0.2.0",
+    "author": "notyoojun",
     "license": "LGPL-2.1-or-later",
-    "keywords": [
+    "keywords": 
+    [
         "rollup-plugin",
         "rollup",
         "inkore",
         "plugin"
     ],
-    "publishConfig": {
+    "publishConfig": 
+    {
         "access": "public"
     },
     "type": "module",
     "types": "dist/index.d.ts",
     "main": "dist/index.cjs",
     "module": "dist/index.js",
-    "exports": {
-        ".": {
-            "import": {
+    "exports": 
+    {
+        ".": 
+        {
+            "import": 
+            {
                 "types": "./dist/index.d.ts",
                 "default": "./dist/index.js"
             },
-            "require": {
+            "require": 
+            {
                 "types": "./dist/index.d.cts",
                 "default": "./dist/index.cjs"
             }
         },
         "./package.json": "./package.json"
     },
-    "repository": {
+    "repository": 
+    {
         "type": "git",
-        "url": "A collection of some commonly used rollup plugins."
+        "url": "https://github.com/iNKORE-Public/Rollup.Plugins"
     },
     "homepage": "https://github.com/iNKORE-Public/Rollup.Plugins#readme",
     "bugs": "https://github.com/iNKORE-Public/Rollup.Plugins/issues",
-    "scripts": {
+    "scripts": 
+    {
         "check": "tsc",
         "build": "tsup source/index.ts --dts --format cjs,esm",
         "dev": "pnpm build --watch"
     },
-    "peerDependencies": {
+    "peerDependencies": 
+    {
         "glob": "^10.3.15",
         "javascript-obfuscator": "^4.1.0",
         "postcss": "^8.4.38",
@@ -49,18 +58,23 @@
         "rollup": "2.x || 3.x || 4.x",
         "sass": "^1.77.1"
     },
-    "peerDependenciesMeta": {
-        "postcss": {
+    "peerDependenciesMeta": 
+    {
+        "postcss": 
+        {
             "optional": true
         },
-        "postcss-modules": {
+        "postcss-modules": 
+        {
             "optional": true
         },
-        "sass": {
+        "sass": 
+        {
             "optional": true
         }
     },
-    "dependencies": {
+    "dependencies": 
+    {
         "@niceties/logger": "^1.1.13",
         "@rollup/pluginutils": "^5.1.0",
         "acorn": "^8.11.3",
@@ -76,14 +90,14 @@
         "rimraf": "^5.0.5",
         "skip-regex": "^1.0.2"
     },
-    "devDependencies": {
+    "devDependencies": 
+    {
         "@types/fs-extra": "^11.0.4",
         "@types/node": "^20.12.5",
         "glob": "^10.3.15",
         "rollup": "^4.9.5",
         "tsup": "^8.0.1",
         "typescript": "^5.3.3",
-
         "eslint": "^8.55.0",
         "eslint-config-airbnb": "^19.0.4",
         "eslint-config-airbnb-typescript": "^17.1.0",
@@ -101,7 +115,8 @@
         "@typescript-eslint/parser": "^6.13.2",
         "@typescript-eslint/typescript-estree": "^7.2.0"
     },
-    "files": [
+    "files": 
+    [
         "dist",
         "src/**/*",
         "LICENSE",
