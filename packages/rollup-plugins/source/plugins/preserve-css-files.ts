@@ -61,7 +61,7 @@ const defaultLoaders =
 
 const replaceMagicPath = (fileContent, customPath = ".") => fileContent.replace(MAGIC_PATH_REGEX, customPath)
 
-function PreserveCssFile(options: PreserveCssFileOptions = {})
+function PreserveCssFile(options: PreserveCssFileOptions = {}): Plugin
 {
     const { customPath, loaders, include, exclude, importCSS = true, ...postCssOptions } = options
     const allLoaders = [...(loaders || []), ...defaultLoaders]
@@ -73,8 +73,9 @@ function PreserveCssFile(options: PreserveCssFileOptions = {})
 
         options(options) 
         {
-            if (!options.output) console.error("missing output options")
-            else options.output.forEach((outputOptions) => outputPaths.push(outputOptions.dir))
+            const output = (options as any).output;
+            if (!output) console.error("missing output options")
+            else output.forEach((outputOptions) => outputPaths.push(outputOptions.dir))
 
             if (!options.input) console.error("missing input options")
             else
@@ -85,7 +86,7 @@ function PreserveCssFile(options: PreserveCssFileOptions = {})
                 }
                 else if (Array.isArray(options.input))
                 {
-                    options.input.forEach((inputOptions) => inputPaths.push(inputOptions.dir))
+                    (options.input as any[]).forEach((inputOptions) => inputPaths.push("dir" in inputOptions ? inputOptions.dir as string : inputOptions))
                 }
             }
         },

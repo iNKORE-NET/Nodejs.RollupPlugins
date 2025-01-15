@@ -1,6 +1,7 @@
 import * as acorn from "acorn";
 import { createFilter, FilterPattern } from "@rollup/pluginutils";
 import MagicString from "magic-string";
+import type { Plugin } from "rollup";
 
 type CommentPreservingCallback = (comment: acorn.Comment) => boolean;
 
@@ -34,7 +35,7 @@ export interface PreserveCommentsOptions
  * A Rollup plugin that handles comments in the code, you're in full control of which comments to keep and which to remove.
  * NOTE: You ALWAYS need to set 'removeComments' to false in the tsconfig when this plugin is used.
  */
-export default function preserveComments(options: PreserveCommentsOptions = {}) 
+export default function preserveComments(options: PreserveCommentsOptions = {}): Plugin
 {
     const {
         shouldPreserve = false,
@@ -126,10 +127,7 @@ export default function preserveComments(options: PreserveCommentsOptions = {})
             catch (e)
             {
                 this.error(chunk.facadeModuleId);
-                return {
-                    code: null,
-                    map: null
-                };
+                return null;
             }
         }
     };

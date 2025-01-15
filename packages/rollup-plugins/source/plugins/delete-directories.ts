@@ -3,13 +3,14 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as rimraf from "rimraf";
+import type { Plugin } from "rollup";
 
 interface Options {
     targets: string[];
     watch?: boolean;
 }
 
-const deleteDirectories = (options: Options) => 
+const deleteDirectories = (options: Options): Plugin => 
 {
     const targets = options.targets || [];
     // 在rollup watch模式下，当recompile的时候是否clear，默认false

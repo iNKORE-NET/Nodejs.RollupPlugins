@@ -1,7 +1,7 @@
 {
     "name": "@inkore/rollup-plugins",
     "description": "A collection of some commonly used rollup plugins.",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "scripts": 
     {
         "check": "tsc",
@@ -53,10 +53,10 @@
     "repository": 
     {
         "type": "git",
-        "url": "https://github.com/iNKORE-NET/Rollup.Plugins"
+        "url": "https://github.com/iNKORE-NET/Nodejs.RollupPlugins"
     },
     "homepage": "https://docs.inkore.net/rollup-plugins",
-    "bugs": "https://github.com/iNKORE-NET/Rollup.Plugins/issues",
+    "bugs": "https://github.com/iNKORE-NET/Nodejs.RollupPlugins/issues",
     "peerDependencies": 
     {
         "glob": "^10.3.15",
