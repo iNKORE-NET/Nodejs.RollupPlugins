@@ -59,7 +59,7 @@
     "bugs": "https://github.com/iNKORE-NET/Nodejs.RollupPlugins/issues",
     "peerDependencies": 
     {
-        "glob": "^10.3.15",
+        "glob": "*",
         "javascript-obfuscator": "^4.1.0",
         "postcss": "^8.4.38",
         "postcss-modules": "^6.0.0",
