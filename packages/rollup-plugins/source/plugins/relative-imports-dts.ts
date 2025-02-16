@@ -166,13 +166,13 @@ export default function RelativeDtsImportsPlugin(_options?: Partial<RelativeDtsI
                         }
 
                         // Check all `im/export ... from "..."` statements
-                        // "import" 或 "export" + 任意数量空格 + 不含引号的内容 + 任意数量空格 + "from" + 任意数量空格 + 任意引号 + 匹配此处内容 + 任意引号
+                        // "import" 或 "export" + 任意数量空格 + 可选的 "type" + 任意数量空格 + 不含引号的内容 + 任意数量空格 + "from" + 任意数量空格 + 任意引号 + 匹配此处内容 + 任意引号
+                        // 或者 "import" + 任意数量空格 + 任意数量空格 + 任意引号 + 匹配此处内容 + 任意引号
 
-                        const importFromRegex = new RegExp(`(?:import|export)\\s+[^'"\`]+\\s+from\\s+['"]([^'"]+)['"\`]`, "g");
+                        const importFromRegex = new RegExp(`(?:import\\s*(?:type\\s+)?(?:[^'"\\\`]+?\\s+from\\s+)?|export\\s+[^'"\\\`]+?\\s+from\\s+)['"]([^'"]+)['"]`, "g");
                         while (match = importFromRegex.exec(ms.original))
                         {
                             foundMatch(match);
-                           
                         }
 
                         // Check all `require("...")` and `import("...")` statements
