@@ -59,12 +59,7 @@
     "bugs": "https://github.com/iNKORE-NET/Nodejs.RollupPlugins/issues",
     "peerDependencies": 
     {
-        "glob": "*",
-        "javascript-obfuscator": "^4.1.0",
-        "postcss": "^8.4.38",
-        "postcss-modules": "^6.0.0",
-        "rollup": "2.x || 3.x || 4.x",
-        "sass": "^1.77.1"
+        "rollup": "2.x || 3.x || 4.x"
     },
     "peerDependenciesMeta": 
     {
@@ -96,7 +91,12 @@
         "magic-string": "^0.30.5",
         "perf-regexes": "^1.0.1",
         "rimraf": "^5.0.5",
-        "skip-regex": "^1.0.2"
+        "skip-regex": "^1.0.2",
+        "postcss": "^8.4.38",
+        "postcss-modules": "^6.0.0",
+        "sass": "^1.77.1",
+        "javascript-obfuscator": "^4.1.0",
+        "glob": "*"
     },
     "files": 
     [
